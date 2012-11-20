@@ -15,8 +15,11 @@
 	<artifactId>Process_Pixels</artifactId>
 	<version>1.0.0</version>
 
-	<name>plugins/Process_Pixels.jar</name>
-	<description>A Maven project implementing an ImageJ 1.x plugin</description>
+	<name>plugins/embl.almf.Microscope_Communicator.jar</name>
+	<description>A Maven project implementing an ImageJ 1.x plugin.
+Communicates with microscope system to send/retireve various info including commands. 
+
+Works only in Windows, as windows registry is used for triggering actions.</description>
 
 	<dependencies>
 		<dependency>
@@ -26,4 +29,7 @@
 		</dependency>
 	</dependencies>
 
+	<organization>
+		<name>EMBL Heidleberg</name>
+	</organization>
 </project>
