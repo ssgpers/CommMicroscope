@@ -1,5 +1,14 @@
 package embl.almf;
 
+/***
+ * @author Christian Tischer
+ * using a (modified) class for Windows Registry communication, written by Oleg Ryaboy
+ * 
+ * Modified by Kota Miura
+ * 
+ */
+
+
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
@@ -224,13 +233,30 @@ public class Microscope_Communicator implements PlugIn {
 
 
 
-	/**
+	/** Debugging
 	 * @param args
+	 * 
 	 */
 	public static void main(String[] args) {
 		Microscope_Communicator mc = new Microscope_Communicator();
 		mc.run("");
 
+	}
+
+	public String getMicroscope() {
+		return microscope;
+	}
+
+	public void setMicroscope(String microscope) {
+		this.microscope = microscope;
+	}
+
+	public String getWinreg_location() {
+		return winreg_location;
+	}
+
+	public void setWinreg_location(String winreg_location) {
+		this.winreg_location = winreg_location;
 	}
 
 }
