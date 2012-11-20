@@ -11,11 +11,11 @@
 		<version>1.19</version>
 	</parent>
 
-	<groupId>sc.fiji</groupId>
-	<artifactId>Process_Pixels</artifactId>
+	<groupId>embl.almf</groupId>
+	<artifactId>Microscope_Communicator</artifactId>
 	<version>1.0.0</version>
 
-	<name>plugins/embl.almf.Microscope_Communicator.jar</name>
+	<name>plugins/Microscope_Communicator.jar</name>
 	<description>A Maven project implementing an ImageJ 1.x plugin.
 Communicates with microscope system to send/retireve various info including commands. 
 
@@ -26,6 +26,11 @@ Works only in Windows, as windows registry is used for triggering actions.</desc
 			<groupId>net.imagej</groupId>
 			<artifactId>ij</artifactId>
 			<version>${imagej1.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
 		</dependency>
 	</dependencies>
 
