@@ -27,7 +27,7 @@ public class Microscope_Communicator implements PlugIn {
 	String microscope = "LSM780";
 	String winreg_location = "HKCU\\SOFTWARE\\VB and VBA Program Settings\\OnlineImageAnalysis\\macro";; 
 	String winreg_separator = "REG_SZ";
-	  
+	String filepath = null; 
 	@Override
 	public void run(String arg0) {
 		// TODO Auto-generated method stub
@@ -88,20 +88,24 @@ public class Microscope_Communicator implements PlugIn {
 
 	public void obtainImage(String microscope) {
 
-		String path;
+		String path = null;
 
 		if (microscope.equals("File system")) {
-
-			OpenDialog od = new OpenDialog("Choose a .mrc file", null);  
-			String dir = od.getDirectory();  
-			if (null == dir) {
-				path=""; // dialog was canceled  
-			} else {
-				dir = dir.replace('\\', '/'); // Windows safe  
-				if (!dir.endsWith("/")) dir += "/";  
-				path = dir + od.getFileName();  
+			
+			path = this.filepath;
+			if (path == null) {
+				OpenDialog od = new OpenDialog("Choose a .mrc file", null);  
+				String dir = od.getDirectory();  
+				if (null == dir) {
+					path=""; // dialog was canceled  
+				} else {
+					dir = dir.replace('\\', '/'); // Windows safe  
+					if (!dir.endsWith("/")) dir += "/";  
+					path = dir + od.getFileName();  
+				}
+			} else { 
+				this.filepath = path;
 			}
-
 
 		} else {
 
@@ -132,57 +136,65 @@ public class Microscope_Communicator implements PlugIn {
 	}
 
 	public void writeToMacro(String command, int offsetx, int offsety) {
-		int x=0;
-		int y=0;
-
 		if (command.equals("image selected particle")) {
-			IJ.log(""+plugin_name+": measuring location of of selected particle...");
-			// measure currently selected particle
-			// todo: make sure the center of mass coordinates are selected
-			RoiManager manager = RoiManager.getInstance();
-			manager.runCommand("Measure");
-			// get x,y coordinates
-			ResultsTable rt = ResultsTable.getResultsTable();
-			int lastRow = rt.getCounter()-1;
-			x = (int)rt.getValueAsDouble(rt.getColumnIndex("XM"),lastRow);
-			y = (int)rt.getValueAsDouble(rt.getColumnIndex("YM"),lastRow);
-			IJ.log(""+plugin_name+": XM, YM ="+x+", "+y);
-			rt.deleteRow(lastRow);
-			ImagePlus imp = IJ.getImage();
-			int w = (int)imp.getWidth();
-			int h = (int)imp.getHeight();
-			int dx = (int)-(x-w/2);
-			int dy = (int)-(y-h/2);
-
-			if(microscope.equals("LSM510")) {
-				IJ.log(""+plugin_name+": LSM510 => inverting dy");
-				dy = -dy;
-			}
-
-			//dx =-500;
-			//dy =-500;
-
-			IJ.log(""+plugin_name+": dx, dy ="+dx+", "+dy);
-
-			WindowsRegistry.writeRegistry(winreg_location, "offsetx", ""+dx);
-			WindowsRegistry.writeRegistry(winreg_location, "offsety", ""+dy);
-			WindowsRegistry.writeRegistry(winreg_location, "orientation", ""+0);
-
-			try {
-				Thread.sleep(500);
-			} catch(InterruptedException ex) {
-				Thread.currentThread().interrupt();
-			}
-			WindowsRegistry.writeRegistry(winreg_location, "Code", "5");
-
-			IJ.log(""+plugin_name+": wrote to microscope");
+			image_selected_particle(offsetx, offsety);
 		}
 
 		if (command.equals("do nothing")) {
-			IJ.log(""+plugin_name+": no good object found");
-			WindowsRegistry.writeRegistry(winreg_location, "Code", "2");
+			do_nothing();
 		}
 	}
+	
+	public void image_selected_particle(int offsetx, int offsety){
+
+		IJ.log(""+plugin_name+": measuring location of of selected particle...");
+		// measure currently selected particle
+		// todo: make sure the center of mass coordinates are selected
+		RoiManager manager = RoiManager.getInstance();
+		manager.runCommand("Measure");
+		// get x,y coordinates
+		ResultsTable rt = ResultsTable.getResultsTable();
+		int lastRow = rt.getCounter()-1;
+		int x = (int)rt.getValueAsDouble(rt.getColumnIndex("XM"),lastRow);
+		int y = (int)rt.getValueAsDouble(rt.getColumnIndex("YM"),lastRow);
+		IJ.log(""+plugin_name+": XM, YM ="+x+", "+y);
+		rt.deleteRow(lastRow);
+		ImagePlus imp = IJ.getImage();
+		int w = (int)imp.getWidth();
+		int h = (int)imp.getHeight();
+		int dx = (int)-(x-w/2);
+		int dy = (int)-(y-h/2);
+
+		if(microscope.equals("LSM510")) {
+			IJ.log(""+plugin_name+": LSM510 => inverting dy");
+			dy = -dy;
+		}
+
+		//dx =-500;
+		//dy =-500;
+
+		IJ.log(""+plugin_name+": dx, dy ="+dx+", "+dy);
+
+		WindowsRegistry.writeRegistry(winreg_location, "offsetx", ""+dx);
+		WindowsRegistry.writeRegistry(winreg_location, "offsety", ""+dy);
+		WindowsRegistry.writeRegistry(winreg_location, "orientation", ""+0);
+
+		try {
+			Thread.sleep(500);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+		WindowsRegistry.writeRegistry(winreg_location, "Code", "5");
+
+		IJ.log(""+plugin_name+": wrote to microscope");		
+	}
+	
+	public void do_nothing(){
+		IJ.log(""+plugin_name+": no good object found");
+		WindowsRegistry.writeRegistry(winreg_location, "Code", "2");
+	}
+	
+	
 
 	public void readFromMacro() {
 
@@ -257,6 +269,14 @@ public class Microscope_Communicator implements PlugIn {
 
 	public void setWinreg_location(String winreg_location) {
 		this.winreg_location = winreg_location;
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
 	}
 
 }
