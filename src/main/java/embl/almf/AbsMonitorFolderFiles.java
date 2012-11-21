@@ -1,14 +1,11 @@
 package embl.almf;
 
-// Kota Miura
+// Kota Miura (cmci.embl.de)
+// 20121121
 // based on
 // http://andreinc.net/2012/06/30/writing-a-simple-file-monitor-in-java-using-commons-io/
 
-import ij.IJ;
-import ij.plugin.PlugIn;
-
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
@@ -25,6 +22,11 @@ public abstract class AbsMonitorFolderFiles {
 
 	public static void setFOLDER(String fOLDER) {
 		FOLDER = fOLDER;
+	}
+	
+	public boolean checkDirExists(String FOLDER){
+		File f = new File(FOLDER);
+		return f.exists();
 	}
 
 	final long pollingInterval = 1000;
@@ -69,6 +71,15 @@ public abstract class AbsMonitorFolderFiles {
 			e.printStackTrace();
 		}
     }
+
+    public void stopMonitorAfter(long stopInterval){
+    	try {
+			monitor.stop(stopInterval);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }    
     
     // to be implemented
     abstract void runOnNewFile(File file);
