@@ -9,13 +9,18 @@ import ij.plugin.PlugIn;
 
 public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles implements PlugIn {
 
-	String macropath = "/Users/miura/Desktop/tmp/testlog.txt";
+	static String macropath = "/Users/miura/Desktop/tmp/testlog.ijm";
+	static String macrotext = "";
+	static int maxrun = 3;
+	int runcount =0;
+	AbsMonitorFolderFiles mff;
+	
 	@Override
 	public void run(String path) {
 		if (path != null){
 			setFOLDER(path);
 		}
-		AbsMonitorFolderFiles mff = new RunMacroOnMonitoredFiles(macropath);
+		mff = new RunMacroOnMonitoredFiles(macropath);
 		try {
 			mff.startMonitoring();
 		} catch (Exception e) {
@@ -27,14 +32,32 @@ public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles implements P
 	public RunMacroOnMonitoredFiles(String macropath){
 		super();
 		this.macropath = macropath;
+		macrotext = IJ.openAsString(this.macropath);
 	}
 	
 	@Override
 	void runOnNewFile(File file) {
-		File macrofile = new File(macropath);
-		MacroRunner mr = new MacroRunner(macrofile);
-		mr.run();
-        
+		//File macrofile = new File(macropath);
+		//MacroRunner mr = new MacroRunner(macrofile);
+		String addedfilepath = "";
+		try {
+			addedfilepath = file.getCanonicalPath();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		MacroRunner mr = new MacroRunner(macrotext, addedfilepath);
+		//mr.run();
+        this.runcount += 1;
+        if (this.runcount >= maxrun ){
+        	IJ.log("monitoring stopped: " + Integer.toString(runcount) + " iterations.");
+        	try {
+        		this.stopMonitor();
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}     		
+        }
 		
 	}
 
@@ -52,6 +75,11 @@ public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles implements P
         }
 		
 	}
+	
+	public void setRunMax(int maxrun){
+		this.maxrun = maxrun;
+	}
+	
   /** for debugging
   * 
   * @param args
