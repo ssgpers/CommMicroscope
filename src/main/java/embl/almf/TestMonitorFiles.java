@@ -1,5 +1,8 @@
 package embl.almf;
 
+//Kota Miura (cmci.embl.de)
+//20121121
+
 import java.io.File;
 import java.io.IOException;
 
@@ -20,6 +23,7 @@ public class TestMonitorFiles extends AbsMonitorFolderFiles implements PlugIn {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override
@@ -53,14 +57,20 @@ public class TestMonitorFiles extends AbsMonitorFolderFiles implements PlugIn {
   * @param args
   */
  public static void main(String[] args) {
- 	AbsMonitorFolderFiles mff = new TestMonitorFiles();
- 	try {
-			mff.startMonitoring();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
- 	
+	 AbsMonitorFolderFiles mff = new TestMonitorFiles();
+	 try {
+		 mff.startMonitoring();
+	 } catch (Exception e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+	 }
+	 IJ.wait(10000);
+	 mff.stopMonitor();
  }	
+// class SimpleThreadFactory implements ThreadFactory {
+//	   public Thread newThread(Runnable r) {
+//	     return new Thread(r);
+//	   }
+//	 } 
 
 }
