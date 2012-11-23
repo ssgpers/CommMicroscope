@@ -9,22 +9,22 @@ import java.io.IOException;
 import ij.IJ;
 import ij.plugin.PlugIn;
 
-public class TestMonitorFiles extends AbsMonitorFolderFiles implements PlugIn {
+public class TestMonitorFiles extends AbsMonitorFolderFiles {
 
-	@Override
-	public void run(String path) {
-		if (path != null){
-			setFOLDER(path);
-		}
-		AbsMonitorFolderFiles mff = new TestMonitorFiles();
-		try {
-			mff.startMonitoring();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+//	@Override
+//	public void run(String path) {
+//		if (path != null){
+//			setFOLDER(path);
+//		}
+//		AbsMonitorFolderFiles mff = new TestMonitorFiles();
+//		try {
+//			mff.startMonitoring();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	@Override
 	void runOnNewFile(File file) {
