@@ -11,7 +11,7 @@ import ij.ImagePlus;
 
 public class ProcessOnNewFile extends AbsMonitorFolderFiles {
 
-	String watchpath = "";
+	final String watchpath;
 	String microscope = "";
 	Microscope_Communicator mc = null;
 	int fileaccessCounter = 0;
@@ -25,9 +25,6 @@ public class ProcessOnNewFile extends AbsMonitorFolderFiles {
 		super();
 		this.watchpath = watchpath;
 		this.microscope = microscope;
-		if (watchpath != null){
-			setFOLDER(watchpath);
-		}
 		if (!this.checkDirExists(watchpath)){
 				IJ.error(watchpath + " does not exist");
 				return;
