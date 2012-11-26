@@ -30,7 +30,7 @@ public class RunJythonOnMonitoredFiles extends AbsMonitorFolderFiles {
 	
 	public RunJythonOnMonitoredFiles(){
 		super();
-		this.watchpath = "/Users/miura/Desktop/tmp/watch";
+		//this.watchpath = "/Users/miura/Desktop/tmp/watch";
 	}
 	
 	public RunJythonOnMonitoredFiles(String macropath){
@@ -117,9 +117,10 @@ public class RunJythonOnMonitoredFiles extends AbsMonitorFolderFiles {
 		gd.showDialog();
 		if(gd.wasCanceled()) return false;
 		this.watchpath = (String)gd.getNextString();
+		setWatchpath(this.watchpath);
 		this.jythonpath = (String)gd.getNextString();
 		this.maxrun = (int) gd.getNextNumber();
-		if (!checkMacroFileExists(watchpath)){
+		if (!checkMacroFileExists(jythonpath)){
 			IJ.log("No such jython file: " + this.jythonpath);
 			return false;
 		}

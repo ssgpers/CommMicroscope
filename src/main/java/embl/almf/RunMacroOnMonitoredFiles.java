@@ -124,9 +124,10 @@ public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles {
 		gd.showDialog();
 		if(gd.wasCanceled()) return false;
 		this.watchpath = (String)gd.getNextString();
+		setWatchpath(this.watchpath);		
 		this.macropath = (String)gd.getNextString();
 		this.maxrun = (int) gd.getNextNumber();
-		if (!checkMacroFileExists(watchpath)){
+		if (!checkMacroFileExists(macropath)){
 			IJ.log("No such macro file: " + this.macropath);
 			return false;
 		}

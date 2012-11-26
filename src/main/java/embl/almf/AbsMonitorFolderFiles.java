@@ -19,11 +19,14 @@ import org.apache.commons.io.monitor.FileAlterationObserver;
 
 public abstract class AbsMonitorFolderFiles {
     // A hardcoded path to a folder you are monitoring .
-    final static String watchpath =
+    private String watchpath =
             "/Users/miura/Desktop/tmp/watch";
     
-    public static String getWatchpath() {
+    public String getWatchpath() {
 		return watchpath;
+	}
+    public void setWatchpath(String watchpath) {
+		this.watchpath = watchpath;
 	}
 
 //	public static void setFOLDER(String fOLDER) {
@@ -66,6 +69,7 @@ public abstract class AbsMonitorFolderFiles {
         observer.addListener(listener);
         monitor.addObserver(observer);
         monitor.start();
+        IJ.log("Watch path set to " + watchpath);
     }
     
     public void stopMonitor(){
