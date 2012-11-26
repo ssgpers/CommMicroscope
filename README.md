@@ -1,7 +1,9 @@
 #Microscope Communicator
 
-Author: Christian Tischer, Kota Miura
-ALMF, EMBL Heidelberg
+##Authors: 
+Christian Tischer (ALMF, EMBL Heidelberg)
+
+Kota Miura (CMCI, EMBL Heidelberg)
 
 ##Installation
 
