@@ -11,6 +11,7 @@ import ij.IJ;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,9 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,6 +42,7 @@ public class MonitorFileGUI extends JFrame implements ActionListener, Observer {
 	String currentProgramPath = "/Users/you/macro.ijm";
 	FileAlterationMonitor monitor = null;
 	JLabel label1, label2, label3, label4, label5, label6;
+	JLabel labelCount1, labelCount2;
 	JButton b2, b3;
 	private RunMacroOnMonitoredFiles mff;
 	private RunJythonOnMonitoredFiles jff;
@@ -116,24 +121,44 @@ public class MonitorFileGUI extends JFrame implements ActionListener, Observer {
 	
 	public void update(Observable o, Object rmf) {
 		String newfile;
+		int runcount = 0;
+		int maxcount = 0;
 		if (scripttype == "macro"){
+			runcount = mff.runcount + 1;
+			maxcount = mff.maxrun;
 			newfile = ((RunMacroOnMonitoredFiles) rmf).getLatestFileName();
 		} else {
+			runcount = jff.runcount + 1;
+			maxcount = jff.maxrun;
 			newfile = ((RunJythonOnMonitoredFiles) rmf).getLatestFileName();
-		}
+		}	
+		labelCount2.setText(Integer.toString(runcount) + " / " + Integer.toString(maxcount));
 		IJ.log("new:" + newfile);
 		label6.setText(newfile);
+		if (runcount >= maxcount){
+			b3.setEnabled(false);
+			labelCount1.setText("Counts(stopped):");
+		}
 	}
 	
 	
 	public void guicontructor(String targetfolder, String macrofile){
 		//getContentPane().setLayout(new FlowLayout());
+
+		Font font1 = new Font("Default", Font.PLAIN, 12);
+		Font font1small = new Font("DefaultSmall", Font.PLAIN, 12);		
+		Font font2 = new Font("Serif", Font.BOLD, 15);
+		Font font3 = new Font("Times New Roman", Font.ITALIC, 15);
+		Font font4 = new Font("Arial", Font.ITALIC|Font.BOLD, 12);
+		Font fontBIG = new Font("Arial", Font.BOLD, 18);
 		
 		label1 = new JLabel("Monitoring:  ");
 		label2 = new JLabel(targetfolder);
-
-		label3 = new JLabel("Macro File:  ");
+		label2.setFont(font1small);
+		
+		label3 = new JLabel("Script File:  ");
 		label4 = new JLabel(macrofile);
+		label4.setFont(font1small);
 
 		b2 = new JButton("Close");
 		b2.addActionListener(this);
@@ -141,24 +166,54 @@ public class MonitorFileGUI extends JFrame implements ActionListener, Observer {
 		b3 = new JButton("Stop");
 		b3.addActionListener(this);
 		
-		label5 = new JLabel("New File:");
+		labelCount1 = new JLabel("Counts:");
+		if (scripttype == "macro")
+			labelCount2 = new JLabel(Integer.toString(mff.runcount) + " / " + Integer.toString(mff.maxrun));		
+		else
+			labelCount2 = new JLabel(Integer.toString(jff.runcount) + " / " + Integer.toString(jff.maxrun));
+		labelCount2.setFont(fontBIG);
+		label5 = new JLabel("The Latest File:");
 		label6 = new JLabel("");
+		label6.setFont(font1small);
+		
+		String authortxt = "<html>Ver. 1.0.0 - Kota@CMCI, EMBL "+
+				"<a href='http://cmci.embl.de'>http://cmci.embl.de</a></html>";
+		JLabel labelCMCI = new JLabel(authortxt);
+		labelCMCI.setFont(font1small);
 
+		JPanel upperp = new JPanel();
+		upperp.setLayout(new GridLayout(4, 1));
+		upperp.setBorder(BorderFactory.createTitledBorder("Monitor Settings"));
+		upperp.add(label1);
+		upperp.add(label2);		
+		upperp.add(label3);
+		upperp.add(label4);
+
+		JPanel middlep = new JPanel();
+		middlep.setLayout(new GridLayout(2, 1));		
+		middlep.setBorder(BorderFactory.createTitledBorder("Status Controls"));
 		JPanel buttonsp = new JPanel();
 		buttonsp.add(b3);
-		buttonsp.add(b2);
+		buttonsp.add(b2);		
+		middlep.add(buttonsp);
+		JPanel countsp = new JPanel();
+		countsp.setLayout(new FlowLayout());
+		countsp.add(labelCount1);
+		countsp.add(labelCount2);
+		middlep.add(countsp);
 		
-		JPanel fullp = new JPanel();
-		fullp.setLayout(new GridLayout(7, 1));		
-		
-		fullp.add(label1);
-		fullp.add(label2);		
-		fullp.add(label3);
-		fullp.add(label4);
-		fullp.add(buttonsp);
-		fullp.add(label5);
-		fullp.add(label6);
+		JPanel  lowerp = new JPanel();
+		lowerp.setLayout(new GridLayout(3, 1));
+		lowerp.setBorder(BorderFactory.createTitledBorder("Info"));
+		lowerp.add(label5);
+		lowerp.add(label6);
+		lowerp.add(labelCMCI);
 
+		JPanel fullp = new JPanel();
+		fullp.setLayout(new GridLayout(3, 1));
+		fullp.add(upperp);
+		fullp.add(middlep);
+		fullp.add(lowerp);
 		
 //		getContentPane().add(label1);
 //		getContentPane().add(label2);
@@ -178,7 +233,7 @@ public class MonitorFileGUI extends JFrame implements ActionListener, Observer {
 		getContentPane().add(fullp, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Monitoring Status");
-		setSize(400, 220);
+		setSize(400, 350);
 		setVisible(true);
 	}
 	public void destroyObservers(){
@@ -225,6 +280,7 @@ public class MonitorFileGUI extends JFrame implements ActionListener, Observer {
 			if (jff != null)
 				jff.removeObservers();
 			b3.setEnabled(false);
+			labelCount1.setText("Counts(stopped):");
 		}
 		
 	}
