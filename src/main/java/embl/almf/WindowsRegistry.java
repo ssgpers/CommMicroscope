@@ -69,6 +69,15 @@ class WindowsRegistry {
 
 	}
 
+	public static String getTrimmedRegistryValue(String winreglocation, String winregkey, String winregseparator) {
+		//IJ.log("reading from "+winreg_location);
+		String temp1 = WindowsRegistry.readRegistry(winreglocation, winregkey);
+		//IJ.log("return="+temp1);
+		String [] temp2 = temp1.split(winregseparator); // extract only the value
+		String value = temp2[1].trim(); // get rid of whitespaces
+		return value;
+	}
+	
 	static class StreamReader extends Thread {
 		private InputStream is;
 		private StringWriter sw= new StringWriter();
