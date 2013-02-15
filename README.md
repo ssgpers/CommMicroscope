@@ -37,6 +37,13 @@ The file path to the new image will be stored in a variable called
 
 and can be used directly in the script. 
 
+##Versions
+
+###1.1.0 (20130215)
+Added with Windows Registry reader/writer plugin. 
+
+###1.0.0
+The first version 
 
 
 
