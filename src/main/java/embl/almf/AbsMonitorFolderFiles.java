@@ -20,7 +20,7 @@ import org.apache.commons.io.monitor.FileAlterationObserver;
 public abstract class AbsMonitorFolderFiles {
     // A hardcoded path to a folder you are monitoring .
     private String watchpath =
-            "/Users/miura/Desktop/tmp/watch";
+            "C:\\FolderName\\";
     
     public String getWatchpath() {
 		return watchpath;

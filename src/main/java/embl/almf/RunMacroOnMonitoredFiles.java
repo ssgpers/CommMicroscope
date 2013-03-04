@@ -15,7 +15,7 @@ import ij.plugin.PlugIn;
 public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles {
 
 	String watchpath;
-	String macropath = "/Users/miura/Desktop/tmp/testlog.ijm";
+	String macropath = "C:\\FolderName\\julia_max_proj.ijm";
 	String macrotext = "";
 	int maxrun = 3;
 	String monitor_threadname = "";
@@ -28,13 +28,13 @@ public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles {
 	
 	public RunMacroOnMonitoredFiles(){
 		super();
-		this.watchpath = "/Users/miura/Desktop/tmp/watch";
+		this.watchpath = "C:\\FolderName\\";
 	}
 	
 	public RunMacroOnMonitoredFiles(String macropath){
 		super();
 		this.macropath = macropath;
-		this.watchpath = "/Users/miura/Desktop/tmp/watch";
+		this.watchpath = "C:\\FolderName\\";
 		macrotext = IJ.openAsString(this.macropath);
 	}
 	public boolean checkMacroFileExists(String FOLDER){

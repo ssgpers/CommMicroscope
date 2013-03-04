@@ -83,7 +83,7 @@ public class ProcessOnNewFile extends AbsMonitorFolderFiles {
   * @param args
   */
  public static void main(String[] args) {
-	 String tmppath = "/Users/miura/Desktop/tmp/watch";
+	 String tmppath = "C:\\FolderName\\";
 	 String tmpmicroscope = "File system";
 	 AbsMonitorFolderFiles mff = new ProcessOnNewFile(tmppath, tmpmicroscope);
 	 try {
