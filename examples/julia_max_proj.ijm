@@ -1,4 +1,4 @@
-var imgNr = imgNr;
+
 macro "Max proj" {
 close("\\Others")
 filepath = getArgument();
