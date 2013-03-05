@@ -1,6 +1,6 @@
 
 macro "Max proj" {
-close("\\Others")
+//close("\\Others")
 filepath = getArgument();
 imgNr = imgNr + 1;
 print(imgNr);
