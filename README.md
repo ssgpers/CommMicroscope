@@ -10,7 +10,7 @@ Antonio Politi (CBB, EMBL Heidelberg)
 
 ##Installation
 
-Create java using mvn package or download the jar file. You need a library "Apache Commons IO" (http://commons.apache.org/proper/commons-io//) as well. Place both files under plugins folder in Fiji. Refresh the menu or restart the Fiji.
+ Create java using mvn package or download the jar file. You need a library "Apache Commons IO" (http://commons.apache.org/proper/commons-io//) as well. Place both files under plugins folder in Fiji. Refresh the menu or restart the Fiji.
 
 Commands will be located under Plugins > ALMF >
 
