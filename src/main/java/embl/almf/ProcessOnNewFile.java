@@ -34,6 +34,14 @@ public class ProcessOnNewFile extends AbsMonitorFolderFiles {
 		//mc.setFilepath(watchpath);
 	}
 
+	/** This method is triggered when a file is changed in watchpath.
+	 * 
+	 */
+	@Override
+	void runOnChangedFile(File file) {
+		runOnNewFile(file);
+	}
+	
 	/** This method is triggered when a file is added to the watchpath.
 	 * 
 	 */
