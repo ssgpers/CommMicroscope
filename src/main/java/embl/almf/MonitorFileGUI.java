@@ -251,6 +251,34 @@ public class MonitorFileGUI extends JFrame implements ActionListener, Observer {
 		//Restart clicked
 		if (e.getSource() == b1) {
 			if (mff != null) {
+				mff.removeObservers();
+				mff.runcount = 0;	
+				labelCount2.setText( Integer.toString(mff.runcount));
+				labelCount1.setText("Counts:");
+				b3.setEnabled(true);
+				try {
+					mff.startMonitoring();
+				 } catch (Exception e1) {
+					 // TODO Auto-generated catch block
+					e1.printStackTrace();
+				 }
+			}
+			if (jff != null) {
+				jff.removeObservers();	
+				jff.runcount = 0;	
+				labelCount2.setText( Integer.toString(jff.runcount));
+				labelCount1.setText("Counts:");
+				b3.setEnabled(true);
+				try {
+					jff.startMonitoring();
+				 } catch (Exception e1) {
+					 // TODO Auto-generated catch block
+					 e1.printStackTrace();
+				 }
+			}
+			System.out.println("Restart listener...");
+		}
+			if (mff != null) {
 				mff.runcount = 0;	
 				labelCount2.setText( Integer.toString(mff.runcount));
 				labelCount1.setText("Counts:");
