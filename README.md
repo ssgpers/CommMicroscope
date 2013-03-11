@@ -10,11 +10,10 @@ Antonio Politi (CBB, EMBL Heidelberg)
 
 ##Installation
 
- Create java using mvn package or download the jar file. 
- You need a library "Apache Commons IO" (http://commons.apache.org/proper/commons-io//) 
- as well so please also download the jar file and place the file in the ImageJ plugin folder. 
- If you are using the plugin with Fiji, Apache Commons IO is already installed so you do not need this
- extra jar file. Refresh the menu or restart the Fiji.
+ Please compile the source file using maven or download the jar file.  
+ 
+ You need a library "Apache Commons IO" (http://commons.apache.org/proper/commons-io/) 
+ as well so please also download the jar file from the above mnentioned site and place the file also in the ImageJ or Fiji plugin folder. 
 
 Commands will be located under Plugins > ALMF >
 
