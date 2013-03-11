@@ -46,6 +46,14 @@ and can be used directly in the script.
 
 ##Versions
 
+###1.1.1 (20130311)
+Antonio's contributions:
+
+- pom.xml updated.
+- For Macro setup dialog, JFrame is now used instead of genericDialog. (not recordable)
+-- In the dioalog Browsing directory and macro file is now possible.
+- Macro does not close when wrong directory/macro is typed but gives a log message out
+
 ###1.1.0 (20130215)
 Added with Windows Registry reader/writer plugin. 
 
