@@ -60,6 +60,10 @@ This works as well.
 
 ##Versions
 
+###1.1.2 (20130311)
+Antonio's bugfix:
+- fixed restart button. Now it first deletes old monitor than startnewmonitor
+
 ###1.1.1 (20130311)
 Antonio's contributions:
 
