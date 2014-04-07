@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 
 import ij.IJ;
-import ij.plugin.PlugIn;
 
 public class TestMonitorFiles extends AbsMonitorFolderFiles {
 
@@ -26,12 +25,12 @@ public class TestMonitorFiles extends AbsMonitorFolderFiles {
 //
 //	}
 	@Override
-	void runOnChangedFile(File file) {
+	public void runOnChangedFile(File file) {
 		runOnNewFile(file);
 	}
 	
 	@Override
-	void runOnNewFile(File file) {
+	public void runOnNewFile(File file) {
         try {
             // "file" is the reference to the newly created file
             IJ.log("File created: "
@@ -43,7 +42,7 @@ public class TestMonitorFiles extends AbsMonitorFolderFiles {
 	}
 
 	@Override
-	void runOnFileRemove(File file) {
+	public void runOnFileRemove(File file) {
         try {
             // "file" is the reference to the removed file
             IJ.log("File removed: "
@@ -62,6 +61,7 @@ public class TestMonitorFiles extends AbsMonitorFolderFiles {
   */
  public static void main(String[] args) {
 	 AbsMonitorFolderFiles mff = new TestMonitorFiles();
+	 mff.setWatchpath("/Users/miura/Desktop/tmp/watch");
 	 try {
 		 mff.startMonitoring();
 	 } catch (Exception e) {
@@ -69,7 +69,9 @@ public class TestMonitorFiles extends AbsMonitorFolderFiles {
 		 e.printStackTrace();
 	 }
 	 IJ.wait(10000);
+	 IJ.log("=== stopped monitoring");
 	 mff.stopMonitor();
+
  }	
 // class SimpleThreadFactory implements ThreadFactory {
 //	   public Thread newThread(Runnable r) {
