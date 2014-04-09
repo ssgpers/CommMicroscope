@@ -38,7 +38,7 @@ public class ProcessOnNewFile extends AbsMonitorFolderFiles {
 	 * 
 	 */
 	@Override
-	void runOnChangedFile(File file) {
+	public void runOnChangedFile(File file) {
 		runOnNewFile(file);
 	}
 	
@@ -46,7 +46,7 @@ public class ProcessOnNewFile extends AbsMonitorFolderFiles {
 	 * 
 	 */
 	@Override
-	void runOnNewFile(File file) {
+	public void runOnNewFile(File file) {
 		String fullpath = "";
 		try {
 			fullpath = file.getCanonicalPath();         
@@ -73,7 +73,7 @@ public class ProcessOnNewFile extends AbsMonitorFolderFiles {
 	}
 
 	@Override
-	void runOnFileRemove(File file) {
+	public void runOnFileRemove(File file) {
         try {
             // "file" is the reference to the removed file
             IJ.log("File removed: "

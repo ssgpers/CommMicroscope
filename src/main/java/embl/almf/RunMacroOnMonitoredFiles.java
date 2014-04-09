@@ -81,12 +81,12 @@ public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles implements A
 	}	
 	
 	@Override
-	void runOnChangedFile(File file) {
+	public void runOnChangedFile(File file) {
 		runOnNewFile(file);
 	}
 
 	@Override
-	void runOnNewFile(File file) {
+	public void runOnNewFile(File file) {
 		String addedfilepath = "";
 		try {
 			addedfilepath = file.getCanonicalPath();
@@ -120,7 +120,7 @@ public class RunMacroOnMonitoredFiles extends AbsMonitorFolderFiles implements A
 	}
 
 	@Override
-	void runOnFileRemove(File file) {
+	public void runOnFileRemove(File file) {
         try {
             // "file" is the reference to the removed file
             IJ.log("File removed: "

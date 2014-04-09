@@ -115,12 +115,12 @@ public class RunJythonOnMonitoredFiles extends AbsMonitorFolderFiles implements 
 		
 	}
 	@Override
-	void runOnChangedFile(File file) {
+	public void runOnChangedFile(File file) {
 		runOnNewFile(file);
 	}
 	
 	@Override
-	void runOnNewFile(File file) {
+	public void runOnNewFile(File file) {
 
 		String addedfilepath = "";
 		try {
@@ -147,7 +147,7 @@ public class RunJythonOnMonitoredFiles extends AbsMonitorFolderFiles implements 
 	}
 
 	@Override
-	void runOnFileRemove(File file) {
+	public void runOnFileRemove(File file) {
         try {
             // "file" is the reference to the removed file
             IJ.log("File removed: "
