@@ -239,7 +239,8 @@ def run():
 		if particles_threshold_method == "globalOtsuThreshold":
 			IJ.run(imp_mask, "Auto Threshold", "method=Otsu white")
 		elif particles_threshold_method == "autoLocalThreshold":
-			Auto_Local_Threshold().exec(imp_mask,"Niblack",particles_radius,particles_threshold,0.0,True)
+			alt = Auto_Local_Threshold()
+			alt.exec(imp_mask,"Niblack",particles_radius,particles_threshold,0.0,True)
 
 
 		# post-processing of the binary image (e.g. watershed touching objects)
