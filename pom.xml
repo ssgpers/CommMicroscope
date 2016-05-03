@@ -12,10 +12,10 @@
 	</parent>
 
 	<groupId>embl.almf</groupId>
-	<artifactId>Microscope_Communicator</artifactId>
+	<artifactId>CommMicroscope</artifactId>
 	<version>1.1.2</version>
 
-	<name>plugins/Microscope_Communicator.jar</name>
+	<name>plugins/CommMicroscope.jar</name>
 	<description>A Maven project implementing an ImageJ 1.x plugin.
 Communicates with microscope system to send/retireve various info including commands. 
 
