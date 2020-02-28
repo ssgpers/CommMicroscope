@@ -5,16 +5,16 @@
 		http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<!--
+	
 	<parent>
 		<groupId>org.scijava</groupId>
 		<artifactId>pom-scijava</artifactId>
-		<version>1.28</version>
+		<version>14.0.0</version>
 	</parent>
-	-->
+ 	
 	<groupId>embl.almf</groupId>
 	<artifactId>CommMicroscope</artifactId>
-	<version>master-SNAPSHOT</version>
+	<version>1.1.3</version>
 
 	<name>CommMicroscope</name>
 	<description>A Maven project implementing an ImageJ 1.x plugin.
@@ -26,22 +26,24 @@
 		<dependency>
 			<groupId>net.imagej</groupId>
 			<artifactId>ij</artifactId>
-			<version>1.50e<!--${imagej1.version}--></version>
+			<version>1.51k<!--${imagej1.version}--></version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
+		  
 		<dependency>
 			<groupId>sc.fiji</groupId>
 			<artifactId>fiji-scripting</artifactId>
 			<version>2.0.0-SNAPSHOT</version>
 		</dependency>
+		 
 	</dependencies>
 	
 	<organization>
-		<name>EMBL Heidleberg</name>
+		<name>EMBL Heidelberg</name>
 	</organization>
 	
 	<!-- NB: for project parent -->
