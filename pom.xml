@@ -46,6 +46,11 @@
 		<name>EMBL Heidelberg</name>
 	</organization>
 	
+	<properties>
+		<enforcer.skip>true</enforcer.skip>
+	</properties>
+
+	
 	<!-- NB: for project parent -->
 	<repositories>
 		<repository>
